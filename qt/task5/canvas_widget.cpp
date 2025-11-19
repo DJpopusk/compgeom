@@ -9,7 +9,6 @@ CanvasWidget::CanvasWidget(CanvasModel& model, QWidget *parent)
     : QWidget(parent), model_(model)
 {
     setMouseTracking(true);
-    setToolTip("ЛКМ: добавить точку. Онлайн — перетаскивать точки. Zoom: +/-, Reset: 0");
 }
 
 void CanvasWidget::setLive(bool on) {
@@ -90,14 +89,14 @@ void CanvasWidget::mousePressEvent(QMouseEvent *event) {
     const QPointF w = screenToWorld(m);
 
     if (live_) {
-        // пробуем схватить существующую точку
+        
         dragIndex_ = pickPointIndex(m);
         if (dragIndex_ != -1) {
             dragging_ = true;
             return;
         }
     }
-    // иначе — добавляем новую точку
+    
     model_.addPoint({ (long double)w.x(), (long double)w.y() });
 
     if (live_) {
@@ -156,7 +155,7 @@ void CanvasWidget::paintEvent(QPaintEvent *) {
     const double pntW    = 4.5 / viewScale_;
     const double radMark = 5.0 / viewScale_;
 
-    // 1) Триангуляция (если есть и либо онлайн-режим, либо нажимали кнопку)
+    
     const bool drawTri = live_ ? model_.hasTriangulation() : showComputedOnce_;
     if (drawTri) {
         p.setPen(QPen(QColor(30, 60, 200), 2.0 / viewScale_, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
@@ -172,7 +171,7 @@ void CanvasWidget::paintEvent(QPaintEvent *) {
         }
     }
 
-    // 2) Все точки
+    
     p.setPen(QPen(Qt::black, lineW, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
     const auto& pts = model_.points();
     for (int i=0; i<(int)pts.size(); ++i) {
@@ -180,7 +179,7 @@ void CanvasWidget::paintEvent(QPaintEvent *) {
         p.drawEllipse(v, radMark, radMark);
     }
 
-    // 3) Индексы
+    
     p.setPen(Qt::darkGray);
     p.setFont(QFont("Arial", 9.0 / viewScale_));
     for (int i=0; i<(int)pts.size(); ++i) {
@@ -194,7 +193,7 @@ void CanvasWidget::paintEvent(QPaintEvent *) {
     p.setFont(QFont("Arial", 16, QFont::Bold));
     
 
-    // статус
+    
     p.setPen(Qt::black);
     p.setFont(QFont("Consolas", 12));
     QString info = QString("points: %1   triangles: %2")

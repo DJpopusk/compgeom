@@ -18,14 +18,14 @@ public:
     LDPoint B() const { return b_; }
     LDPoint P() const { return p_; }
 
-    // epsilon в единицах координат
+    
     void setEps(long double e);
     long double eps() const { return eps_; }
 
-    // Геометрия в long double
-    int  relation() const;          // 1=LEFT, -1=RIGHT, 0=ON, 999=нехватает данных
+    
+    int  relation() const;          
 
-    // утилиты для UI
+    
     void clearAB() { hasA_ = hasB_ = false; }
     void clearAll(){ hasA_ = hasB_ = hasP_ = false; }
 

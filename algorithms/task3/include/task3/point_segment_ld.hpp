@@ -14,4 +14,4 @@ bool point_on_segment(const Point& a, const Point& b,
 int point_segment_relation(const Point& a, const Point& b,
                            const Point& p, long double eps);
 
-} // namespace task3
+} 

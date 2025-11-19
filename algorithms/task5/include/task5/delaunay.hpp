@@ -17,4 +17,4 @@ struct Triangle {
 bool delaunay_triangulation(const std::vector<Point>& pts,
                             std::vector<Triangle>* triangles);
 
-} // namespace task5
+} 

@@ -53,7 +53,7 @@ MainWindow::MainWindow(QWidget *parent) : QWidget(parent) {
     connect(rbUnion_,   &QRadioButton::toggled, this, &MainWindow::onOpChanged);
     connect(rbDiff_,    &QRadioButton::toggled, this, &MainWindow::onOpChanged);
 
-    onOpChanged(); // инициализация режима
+    onOpChanged(); 
 }
 
 void MainWindow::onStartB() { canvas_->actionStartB(); }

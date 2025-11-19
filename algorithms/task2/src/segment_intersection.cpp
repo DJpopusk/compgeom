@@ -20,12 +20,12 @@ bool segment_intersection(const Vec2& a, const Vec2& b,
 
     const double tiny = 1e-12;
     if (std::fabs(denom) < tiny) {
-        // Параллельны или коллинеарны
+        
         if (std::fabs(cross(cma, r)) > eps * length(r)) return false;
 
         const double rr = dot(r, r);
         if (rr < tiny) {
-            // a==b: вырожденный сегмент — точка
+            
             const double ss = dot(s, s);
             if (ss < tiny) {
                 if (length(a - c) <= eps) {
@@ -79,4 +79,4 @@ std::optional<Vec2> segment_intersection(const Vec2& a, const Vec2& b,
     return std::nullopt;
 }
 
-} // namespace task2
+} 

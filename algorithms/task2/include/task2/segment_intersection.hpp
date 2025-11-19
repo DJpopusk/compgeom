@@ -41,4 +41,4 @@ std::optional<Vec2> segment_intersection(const Vec2& a, const Vec2& b,
                                          const Vec2& c, const Vec2& d,
                                          double eps);
 
-} // namespace task2
+} 

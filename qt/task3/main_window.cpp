@@ -32,7 +32,7 @@ MainWindow::MainWindow(QWidget *parent) : QWidget(parent) {
     btnReset_ = new QPushButton(tr("Сброс вида"), this);
     lblRel_   = new QLabel(tr("relation: —"), this);
 
-    // Верхняя панель ввода
+    
     auto grid = new QGridLayout();
     grid->addWidget(new QLabel("A:"), 0,0); grid->addWidget(ax_,0,1); grid->addWidget(ay_,0,2);
     grid->addWidget(new QLabel("B:"), 1,0); grid->addWidget(bx_,1,1); grid->addWidget(by_,1,2);
@@ -52,19 +52,19 @@ MainWindow::MainWindow(QWidget *parent) : QWidget(parent) {
     connect(btnReset_, &QPushButton::clicked, this, &MainWindow::resetView);
     connect(canvas_, &CanvasWidget::relationChanged, this, &MainWindow::onRelation);
 
-    // Начальные значения
+    
     ax_->setText("1");
     ay_->setText("1");
     bx_->setText("2");
     by_->setText("2");
     px_->setText("1");
     py_->setText("1.000000000000000000000000000000000000000000000000000000000000000000001");
-    eps_->setText("0"); // начнём без толеранса
+    eps_->setText("0"); 
 }
 
 bool MainWindow::parseLD(const QString& s, long double& out, QString* err) const {
     try {
-        // std::stold — парсит long double и поддерживает длинные десятичные строки
+        
         std::string tmp = s.trimmed().toStdString();
         if (tmp.empty()) { if(err) *err="empty"; return false; }
         size_t pos = 0;

@@ -10,7 +10,7 @@ class CanvasWidget : public QWidget {
 public:
     explicit CanvasWidget(CanvasModel& model, QWidget *parent = nullptr);
 
-    // для внешнего кода
+    
     void resetView();
 
 signals:
@@ -32,5 +32,5 @@ private:
     CanvasModel& model_;
     double  viewScale_  = 1.0;
     QPointF viewOffset_ = QPointF(0, 0);
-    int     clickStage_ = 0; // 0: A, 1: B, 2: P, затем снова 0
+    int     clickStage_ = 0; 
 };

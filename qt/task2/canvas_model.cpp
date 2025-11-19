@@ -32,7 +32,7 @@ namespace {
 task2::Vec2 toVec(const QPointF& p) {
     return task2::Vec2{p.x(), p.y()};
 }
-} // namespace
+} 
 
 bool CanvasModel::segmentIntersection(QPointF* out) const {
     if (!ready()) return false;

@@ -17,7 +17,7 @@ private:
     static double clamp(double v, double lo, double hi);
     static QPointF mousePointF(const QMouseEvent *e);
 
-    // view helpers
+    
     QPointF screenToWorld(const QPointF &screen) const;
     QPointF worldToScreen(const QPointF &world) const;
     void zoomAtCenter(double factor);

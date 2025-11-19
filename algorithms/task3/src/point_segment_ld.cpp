@@ -49,4 +49,4 @@ int point_segment_relation(const Point& a, const Point& b,
     return 0;
 }
 
-} // namespace task3
+} 

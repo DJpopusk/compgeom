@@ -5,14 +5,10 @@
 #include <QFont>
 #include <QtMath>
 
-static const char* kTitle =
-    "Segment vs Point: 1=LEFT, -1=RIGHT, 0=ON (eps) | Zoom: +/-, Reset: 0 | Epsilon: [ / ] / E";
-
 CanvasWidget::CanvasWidget(CanvasModel& model, QWidget *parent)
     : QWidget(parent), model_(model)
 {
     setMouseTracking(true);
-    setWindowTitle(kTitle);
 }
 
 double CanvasWidget::clamp(double v, double lo, double hi) {
@@ -55,15 +51,15 @@ void CanvasWidget::keyPressEvent(QKeyEvent *event) {
         event->accept(); return;
     }
 
-    if (event->key() == Qt::Key_BracketRight) {        // ]
+    if (event->key() == Qt::Key_BracketRight) {
         model_.setEps(model_.eps() + 0.5);
         update(); event->accept(); return;
     }
-    if (event->key() == Qt::Key_BracketLeft) {         // [
+    if (event->key() == Qt::Key_BracketLeft) {
         model_.setEps(model_.eps() - 0.5);
         update(); event->accept(); return;
     }
-    if (event->key() == Qt::Key_E) {                   // E
+    if (event->key() == Qt::Key_E) {
         model_.setEps(1.0);
         update(); event->accept(); return;
     }
@@ -110,8 +106,7 @@ void CanvasWidget::paintEvent(QPaintEvent *) {
     p.setPen(Qt::blue);
     p.setFont(QFont("Arial", 22, QFont::Bold));
     const int r = model_.relation();
-    QString res = (r == 1 ? "1" : r == -1 ? "-1" : r == 0 ? "0" :
-                                  "ЛКМ: A→B, ПКМ: P, Zoom: +/-, 0, ε: [ / ] / E");
+    QString res = (r == 1 ? "1" : r == -1 ? "-1" : r == 0 ? "0" : "—");
     p.drawText(10, 32, res);
 
     p.setPen(Qt::black);
@@ -131,7 +126,6 @@ void CanvasWidget::paintEvent(QPaintEvent *) {
 }
 
 QPointF CanvasWidget::screenToWorld(const QPointF &screen) const {
-    // screen = scale * world + offset  =>  world = (screen - offset) / scale
     return (screen - viewOffset_) / viewScale_;
 }
 QPointF CanvasWidget::worldToScreen(const QPointF &world) const {

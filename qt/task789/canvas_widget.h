@@ -13,8 +13,8 @@ public:
     void setLive(bool on);
     bool live() const { return live_; }
 
-    void actionStartB(); // «Создать второй»
-    void actionFinish(); // «Завершить»
+    void actionStartB(); 
+    void actionFinish(); 
     void resetView();
 
 signals:

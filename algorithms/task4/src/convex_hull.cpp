@@ -76,4 +76,4 @@ bool convex_hull_indices(const std::vector<Point>& pts, HullIndices* hull) {
     return !hull->empty();
 }
 
-} // namespace task4
+} 

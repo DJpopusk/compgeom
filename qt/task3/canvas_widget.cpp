@@ -8,7 +8,6 @@ CanvasWidget::CanvasWidget(CanvasModel& model, QWidget *parent)
     : QWidget(parent), model_(model)
 {
     setMouseTracking(true);
-    setToolTip("ЛКМ: AtoBtoP; Zoom: +/-, Reset: 0");
 }
 
 QPointF CanvasWidget::mousePointF(const QMouseEvent *e) {
@@ -54,7 +53,7 @@ void CanvasWidget::mousePressEvent(QMouseEvent *event) {
     const QPointF m = mousePointF(event);
     const QPointF w = screenToWorld(m);
 
-    // сохраняем как long double
+    
     LDPoint W{ (long double)w.x(), (long double)w.y() };
 
     if (clickStage_ == 0) {
@@ -100,7 +99,7 @@ void CanvasWidget::paintEvent(QPaintEvent *) {
     const double pntW    = 5.0 / viewScale_;
     const double radMark = 6.0 / viewScale_;
 
-    // рисуем A,B,P
+    
     p.setPen(QPen(Qt::black, lineW, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
     if (model_.hasA()) {
         QPointF a((double)model_.A().x, (double)model_.A().y);
@@ -117,7 +116,7 @@ void CanvasWidget::paintEvent(QPaintEvent *) {
         p.drawPoint(pp);
     }
 
-    // подписи
+    
     p.setPen(Qt::darkGray);
     p.setFont(QFont("Arial", 10.0 / viewScale_));
     auto label = [&](const LDPoint& pt, const char* name){
@@ -131,15 +130,14 @@ void CanvasWidget::paintEvent(QPaintEvent *) {
 
     p.restore();
 
-    // верхняя строка: relation
+    
     p.setPen(Qt::blue);
     p.setFont(QFont("Arial", 22, QFont::Bold));
     const int r = model_.relation();
-    QString res = (r == 1 ? "1" : r == -1 ? "-1" : r == 0 ? "0" :
-                                  "ЛКМ: AtoBtoP, Zoom: +/-, 0; ввод — сверху");
+    QString res = (r == 1 ? "1" : r == -1 ? "-1" : r == 0 ? "0" : "—");
     p.drawText(10, 32, res);
 
-    // нижний инфоблок
+    
     p.setPen(Qt::black);
     p.setFont(QFont("Consolas", 12));
     QString coords;

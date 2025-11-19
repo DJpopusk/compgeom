@@ -9,7 +9,6 @@ CanvasWidget::CanvasWidget(CanvasModel& model, QWidget *parent)
     : QWidget(parent), model_(model)
 {
     setMouseTracking(true);
-    setToolTip("ЛКМ: добавить точку. Онлайн — перетаскивать точки. Zoom: +/-, Reset: 0");
 }
 
 void CanvasWidget::setLive(bool on) {
@@ -90,14 +89,14 @@ void CanvasWidget::mousePressEvent(QMouseEvent *event) {
     const QPointF w = screenToWorld(m);
 
     if (live_) {
-        // сначала пробуем схватить существующую точку
+        
         dragIndex_ = pickPointIndex(m);
         if (dragIndex_ != -1) {
             dragging_ = true;
             return;
         }
     }
-    // иначе — просто добавляем новую точку
+    
     model_.addPoint({ (long double)w.x(), (long double)w.y() });
 
     if (live_) {
@@ -156,7 +155,7 @@ void CanvasWidget::paintEvent(QPaintEvent *) {
     const double pntW    = 5.0 / viewScale_;
     const double radMark = 5.5 / viewScale_;
 
-    // 1) Оболочка (если есть и либо онлайн-режим, либо нажимали кнопку)
+    
     const bool drawHull = live_ ? model_.hasHull() : showComputedOnce_;
     if (drawHull) {
         p.setPen(QPen(QColor(0,150,0), 3.0 / viewScale_, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
@@ -168,7 +167,7 @@ void CanvasWidget::paintEvent(QPaintEvent *) {
             p.drawLine(QPointF((double)A.x, (double)A.y),
                        QPointF((double)B.x, (double)B.y));
         }
-        // слегка подсветим вершины оболочки
+        
         p.setPen(QPen(QColor(0,120,0), pntW, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
         for (int id : ids) {
             QPointF v((double)pts[id].x, (double)pts[id].y);
@@ -176,7 +175,7 @@ void CanvasWidget::paintEvent(QPaintEvent *) {
         }
     }
 
-    // 2) Все точки
+    
     p.setPen(QPen(Qt::black, lineW, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
     const auto& pts = model_.points();
     for (int i=0; i<(int)pts.size(); ++i) {
@@ -184,7 +183,7 @@ void CanvasWidget::paintEvent(QPaintEvent *) {
         p.drawEllipse(v, radMark, radMark);
     }
 
-    // 3) Индексы точек
+    
     p.setPen(Qt::darkGray);
     p.setFont(QFont("Arial", 9.0 / viewScale_));
     for (int i=0; i<(int)pts.size(); ++i) {
@@ -194,13 +193,13 @@ void CanvasWidget::paintEvent(QPaintEvent *) {
 
     p.restore();
 
-    // заголовок/подсказка
+    
     p.setPen(Qt::blue);
     p.setFont(QFont("Arial", 16, QFont::Bold));
     p.drawText(10, 24, live_ ? "Онлайн: тяните точки — оболочка обновляется"
                              : "Режим по кнопке: добавьте точки и нажмите «Построить оболочку»");
 
-    // статус
+    
     p.setPen(Qt::black);
     p.setFont(QFont("Consolas", 12));
     QString info = QString("points: %1   hull verts: %2")

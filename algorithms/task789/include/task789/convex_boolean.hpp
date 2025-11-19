@@ -18,4 +18,4 @@ std::vector<Polygon> boolean_operation(const Polygon& hullA,
                                        const Polygon& hullB,
                                        Operation op);
 
-} // namespace task789
+} 

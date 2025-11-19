@@ -6,19 +6,15 @@
 #include <QtMath>
 #include <limits>
 
-static const char* kTitleHint =
-    "ЛКМ: ставить A,B,C,D (отрезки AB и CD). Онлайн-режим: тянуть вершины. Zoom: +/-, Reset: 0";
-
 CanvasWidget::CanvasWidget(CanvasModel& model, QWidget *parent)
     : QWidget(parent), model_(model)
 {
     setMouseTracking(true);
-    setToolTip(kTitleHint);
 }
 
 void CanvasWidget::setLive(bool on) {
     live_ = on;
-    if (live_) showComputedOnce_ = false; // в онлайне рисуем текущий результат
+    if (live_) showComputedOnce_ = false; 
     update();
 }
 
@@ -89,12 +85,12 @@ void CanvasWidget::mousePressEvent(QMouseEvent *event) {
 
     if (event->button() == Qt::LeftButton) {
         if (live_) {
-            // захват ближайшей вершины
+            
             dragIndex_ = pickPointIndex(m);
             if (dragIndex_ != -1) {
                 dragging_ = true;
             } else {
-                // если не попали в вершину — ставим следующую
+                
                 model_.placeNext(screenToWorld(m));
                 if (live_) showComputedOnce_ = false;
                 emit intersectionAvailable(model_.ready() && model_.segmentIntersection(nullptr));
@@ -113,7 +109,7 @@ void CanvasWidget::mouseMoveEvent(QMouseEvent *event) {
     const QPointF w = screenToWorld(m);
     if (dragIndex_ >= 0) {
         model_.setPoint(static_cast<CanvasModel::PointId>(dragIndex_), w);
-        // онлайн-пересчёт
+        
         QPointF x;
         const bool ok = model_.segmentIntersection(&x);
         lastIntersection_ = x;
@@ -161,7 +157,7 @@ void CanvasWidget::paintEvent(QPaintEvent *) {
     const double pntW    = 5.0 / viewScale_;
     const double radMark = 6.0 / viewScale_;
 
-    // отрезки
+    
     p.setPen(QPen(Qt::black, lineW, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
     if (model_.has(CanvasModel::A)) p.drawEllipse(model_.point(CanvasModel::A), radMark, radMark);
     if (model_.has(CanvasModel::B) && model_.has(CanvasModel::A)) {
@@ -174,7 +170,7 @@ void CanvasWidget::paintEvent(QPaintEvent *) {
         p.drawEllipse(model_.point(CanvasModel::D), radMark, radMark);
     }
 
-    // подписи
+    
     p.setPen(Qt::darkGray);
     p.setFont(QFont("Arial", 10.0 / viewScale_));
     auto label = [&](const QPointF& pt, const char* name){
@@ -186,7 +182,7 @@ void CanvasWidget::paintEvent(QPaintEvent *) {
     if (model_.has(CanvasModel::C)) label(model_.point(CanvasModel::C), "C");
     if (model_.has(CanvasModel::D)) label(model_.point(CanvasModel::D), "D");
 
-    // точка пересечения: либо в онлайне, либо сохранённый "once"
+    
     bool drawX = false;
     QPointF X{};
     if (live_) {
@@ -205,13 +201,13 @@ void CanvasWidget::paintEvent(QPaintEvent *) {
 
     p.restore();
 
-    // верхняя строка
+    
     p.setPen(Qt::blue);
     p.setFont(QFont("Arial", 16, QFont::Bold));
     p.drawText(10, 24, live_ ? "Онлайн режим: перетаскивайте вершины" :
                            "Режим по кнопке: поставьте 4 точки и нажмите 'Вычислить'");
 
-    // нижний инфоблок
+    
     p.setPen(Qt::black);
     p.setFont(QFont("Consolas", 12));
     QString coords;

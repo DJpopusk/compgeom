@@ -13,7 +13,7 @@ public:
     void setLive(bool on);
     bool live() const { return live_; }
 
-    void computeOnce(); // по кнопке
+    void computeOnce(); 
     void resetView();
 
 signals:
@@ -44,5 +44,5 @@ private:
     bool dragging_ = false;
     int  dragIndex_ = -1;
 
-    bool showComputedOnce_ = false; // если true — рисуем последнюю посчитанную оболочку в non-live режиме
+    bool showComputedOnce_ = false; 
 };

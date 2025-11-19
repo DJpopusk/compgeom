@@ -38,4 +38,4 @@ bool point_on_segment(const Vec2& a, const Vec2& b,
 int point_segment_relation(const Vec2& a, const Vec2& b,
                            const Vec2& p, double eps);
 
-} // namespace task1
+} 

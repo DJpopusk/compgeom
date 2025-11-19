@@ -29,7 +29,7 @@ MainWindow::MainWindow(QWidget *parent) : QWidget(parent) {
     setLayout(v);
     setWindowTitle(tr("Пересечение двух отрезков — кнопка / онлайн"));
 
-    // связи
+    
     connect(btnCompute_, &QPushButton::clicked, this, &MainWindow::onComputeClicked);
     connect(cbLive_, &QCheckBox::toggled, this, &MainWindow::onLiveToggled);
     connect(canvas_, &CanvasWidget::intersectionAvailable, this, &MainWindow::onIntersectionStatus);

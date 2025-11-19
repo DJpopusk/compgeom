@@ -42,4 +42,4 @@ int point_segment_relation(const Vec2& a, const Vec2& b,
     return 0;
 }
 
-} // namespace task1
+} 

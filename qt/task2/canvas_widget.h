@@ -11,15 +11,15 @@ class CanvasWidget : public QWidget {
 public:
     explicit CanvasWidget(CanvasModel& model, QWidget *parent = nullptr);
 
-    // управление режимом
+    
     void setLive(bool on);
     bool live() const { return live_; }
 
-    // однократный расчёт (по кнопке)
+    
     void computeOnce();
 
 signals:
-    void intersectionAvailable(bool ok); // для статуса в окне
+    void intersectionAvailable(bool ok); 
 
 protected:
     void mousePressEvent(QMouseEvent *event) override;
@@ -36,7 +36,7 @@ private:
     QPointF worldToScreen(const QPointF &world) const;
     void zoomAtCenter(double factor);
     void resetView();
-    int pickPointIndex(const QPointF& mouseScreen) const; // -1 если нет
+    int pickPointIndex(const QPointF& mouseScreen) const; 
 
 private:
     CanvasModel& model_;
@@ -47,7 +47,7 @@ private:
     bool dragging_ = false;
     int dragIndex_ = -1;
 
-    // вывод точки пересечения
+    
     bool showComputedOnce_ = false;
     QPointF lastIntersection_{};
 };

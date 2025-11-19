@@ -9,7 +9,6 @@ CanvasWidget::CanvasWidget(CanvasModel& model, QWidget *parent)
     : QWidget(parent), model_(model)
 {
     setMouseTracking(true);
-    setToolTip("ЛКМ: добавлять точки; ПКМ по точке — удалить; Онлайн: тянуть точки. Zoom: +/-, Reset: 0");
 }
 
 void CanvasWidget::setLive(bool on) {
@@ -82,7 +81,7 @@ void CanvasWidget::mousePressEvent(QMouseEvent *event) {
             dragIndex_ = pickActiveIndexScreen(m);
             if (dragIndex_ != -1) { dragging_ = true; return; }
         }
-        // добавление новой
+        
         model_.addPoint(screenToWorld(m));
         if (live_) model_.recompute();
         updateStatus();
@@ -172,15 +171,15 @@ void CanvasWidget::paintEvent(QPaintEvent *) {
         }
     };
 
-    // точки
+    
     drawPoints(model_.pointsA());
     drawPoints(model_.pointsB());
 
-    // оболочки
+    
     if (!model_.hullA().empty()) drawPoly(model_.hullA(), QColor(0,170,0), 3.0);
     if (!model_.hullB().empty()) drawPoly(model_.hullB(), QColor(160,0,200), 3.0);
 
-    // результат
+    
     if (model_.phase() == Phase::Done) {
         const auto& R = model_.result().polys;
         if (!R.empty()) {

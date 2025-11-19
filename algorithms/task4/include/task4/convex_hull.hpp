@@ -12,4 +12,4 @@ using HullIndices = std::vector<int>;
 
 bool convex_hull_indices(const std::vector<Point>& pts, HullIndices* hull);
 
-} // namespace task4
+} 
