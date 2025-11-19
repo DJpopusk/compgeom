@@ -6,7 +6,7 @@
 #include <QtMath>
 
 static const char* kTitle =
-    "Segment vs Point: 1=LEFT, -1=RIGHT, 0=ON (ε) | Zoom: +/-, Reset: 0 | Epsilon: [ / ] / E";
+    "Segment vs Point: 1=LEFT, -1=RIGHT, 0=ON (eps) | Zoom: +/-, Reset: 0 | Epsilon: [ / ] / E";
 
 CanvasWidget::CanvasWidget(CanvasModel& model, QWidget *parent)
     : QWidget(parent), model_(model)

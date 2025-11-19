@@ -2,13 +2,14 @@
 #include <QMouseEvent>
 #include <QKeyEvent>
 #include <QPainter>
+#include <QPainterPath>
 #include <QtMath>
 
 CanvasWidget::CanvasWidget(CanvasModel& model, QWidget *parent)
     : QWidget(parent), model_(model)
 {
     setMouseTracking(true);
-    setToolTip("ЛКМ: добавлять точки в активный полигон; ПКМ по точке — удалить; Онлайн: тянуть точки. Zoom: +/-, Reset: 0");
+    setToolTip("ЛКМ: добавлять точки; ПКМ по точке — удалить; Онлайн: тянуть точки. Zoom: +/-, Reset: 0");
 }
 
 void CanvasWidget::setLive(bool on) {
@@ -182,28 +183,18 @@ void CanvasWidget::paintEvent(QPaintEvent *) {
     // результат
     if (model_.phase() == Phase::Done) {
         const auto& R = model_.result().polys;
-        p.setPen(Qt::NoPen);
-        QColor fill(20,120,220,70);
-        p.setBrush(fill);
-
-        const bool multi = R.size() > 1;
-        for (const auto& poly : R) {
-            if (poly.size() < 3) continue;
-            QPolygonF q; q.reserve((int)poly.size());
-            for (auto &pt : poly) q << QPointF((double)pt.x, (double)pt.y);
-            p.drawPolygon(q, multi ? Qt::OddEvenFill : Qt::WindingFill);
+        if (!R.empty()) {
+            QColor fill(20,120,220,70);
+            QPainterPath path;
+            path.setFillRule(Qt::OddEvenFill);
+            for (const auto& poly : R) {
+                if (poly.size() < 3) continue;
+                QPolygonF q; q.reserve((int)poly.size());
+                for (auto &pt : poly) q << QPointF((double)pt.x, (double)pt.y);
+                path.addPolygon(q);
+            }
+            p.fillPath(path, fill);
         }
-        p.setBrush(Qt::NoBrush);
     }
 
-    p.restore();
-
-    // строка подсказки
-    p.setPen(Qt::blue);
-    p.setFont(QFont("Arial", 15, QFont::Bold));
-    QString hint;
-    if (model_.phase()==Phase::EditingA) hint = "ЛКМ: точки A. Двойной щелчок или кнопка — «Создать второй»";
-    else if (model_.phase()==Phase::EditingB) hint = "ЛКМ: точки B. Двойной щелчок или кнопка — «Завершить»";
-    else hint = "Готово: переключайте режим операции; Онлайн — тяните точки, ПКМ — удаляйте";
-    p.drawText(10, 24, hint);
-}
+    p.restore();}

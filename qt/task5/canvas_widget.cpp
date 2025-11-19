@@ -190,11 +190,9 @@ void CanvasWidget::paintEvent(QPaintEvent *) {
 
     p.restore();
 
-    // подсказка
     p.setPen(Qt::blue);
     p.setFont(QFont("Arial", 16, QFont::Bold));
-    p.drawText(10, 24, live_ ? "Онлайн: тяните точки — Делоне обновляется"
-                             : "Режим по кнопке: добавьте точки и нажмите «Триангуляция Делоне»");
+    
 
     // статус
     p.setPen(Qt::black);

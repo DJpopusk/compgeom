@@ -1,0 +1,5 @@
+build/
+.vscode/
+launch.json
+CMakeCache.txt
+cmake-build*/

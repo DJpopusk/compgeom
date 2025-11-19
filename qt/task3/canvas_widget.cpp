@@ -8,7 +8,7 @@ CanvasWidget::CanvasWidget(CanvasModel& model, QWidget *parent)
     : QWidget(parent), model_(model)
 {
     setMouseTracking(true);
-    setToolTip("ЛКМ: A→B→P; Zoom: +/-, Reset: 0");
+    setToolTip("ЛКМ: AtoBtoP; Zoom: +/-, Reset: 0");
 }
 
 QPointF CanvasWidget::mousePointF(const QMouseEvent *e) {
@@ -136,7 +136,7 @@ void CanvasWidget::paintEvent(QPaintEvent *) {
     p.setFont(QFont("Arial", 22, QFont::Bold));
     const int r = model_.relation();
     QString res = (r == 1 ? "1" : r == -1 ? "-1" : r == 0 ? "0" :
-                                  "ЛКМ: A→B→P, Zoom: +/-, 0; ввод — сверху");
+                                  "ЛКМ: AtoBtoP, Zoom: +/-, 0; ввод — сверху");
     p.drawText(10, 32, res);
 
     // нижний инфоблок
@@ -149,7 +149,7 @@ void CanvasWidget::paintEvent(QPaintEvent *) {
     else               coords += "B = (—, —)\n";
     if (model_.hasP()) coords += QString("P = (%1, %2)\n").arg((double)model_.P().x,0,'f',6).arg((double)model_.P().y,0,'f',6);
     else               coords += "P = (—, —)\n";
-    coords += QString("ε = %1").arg((double)model_.eps(),0,'g',10);
+    coords += QString("eps = %1").arg((double)model_.eps(),0,'g',10);
 
     const int margin = 10;
     QRect box(margin, height() - margin - 5*18, 360, 5*18);

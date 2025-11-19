@@ -224,7 +224,7 @@ void CanvasWidget::paintEvent(QPaintEvent *) {
     coords += fmt(CanvasModel::B, "B");
     coords += fmt(CanvasModel::C, "C");
     coords += fmt(CanvasModel::D, "D");
-    coords += QString("ε = %1").arg(model_.eps(),0,'f',2);
+    coords += QString("eps = %1").arg(model_.eps(),0,'f',2);
 
     const int margin = 10;
     QRect box(margin, height() - margin - 5*18, 340, 5*18);
