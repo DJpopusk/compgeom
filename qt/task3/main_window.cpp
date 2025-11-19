@@ -37,7 +37,7 @@ MainWindow::MainWindow(QWidget *parent) : QWidget(parent) {
     grid->addWidget(new QLabel("A:"), 0,0); grid->addWidget(ax_,0,1); grid->addWidget(ay_,0,2);
     grid->addWidget(new QLabel("B:"), 1,0); grid->addWidget(bx_,1,1); grid->addWidget(by_,1,2);
     grid->addWidget(new QLabel("P:"), 2,0); grid->addWidget(px_,2,1); grid->addWidget(py_,2,2);
-    grid->addWidget(new QLabel("ε:"), 0,3); grid->addWidget(eps_,0,4);
+    grid->addWidget(new QLabel("eps:"), 0,3); grid->addWidget(eps_,0,4);
     grid->addWidget(btnApply_, 1,3,1,2);
     grid->addWidget(btnReset_, 2,3,1,2);
     grid->addWidget(lblRel_,   0,5,3,1);

@@ -118,7 +118,7 @@ void CanvasWidget::paintEvent(QPaintEvent *) {
     else               coords += "B = (—, —)\n";
     if (model_.hasP()) coords += QString("P = (%1, %2)\n").arg(model_.P().x(),0,'f',1).arg(model_.P().y(),0,'f',1);
     else               coords += "P = (—, —)\n";
-    coords += QString("ε (tolerance) = %1").arg(model_.eps(), 0, 'f', 2);
+    coords += QString("eps (tolerance) = %1").arg(model_.eps(), 0, 'f', 2);
 
     const int margin = 10;
     QRect box(margin, height() - margin - 4*18, 320, 4*18);
